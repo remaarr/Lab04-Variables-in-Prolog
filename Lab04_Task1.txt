@@ -1,0 +1,50 @@
+ARTI 303 - Programming for AI
+Lab 4: Variables in Prolog
+Task 1 - Unification queries (SWI-Prolog)
+
+
+1.  ?- house = house.
+    true.
+
+2.  ?- house = abc.
+    false.
+
+3.  ?- edge(a,b) = edge(C,b).
+    C = a.
+
+4.  ?- edge(a,d) = edge(C,B).
+    C = a,
+    B = d.
+
+5.  ?- edge(C,B) = edge(a,d).
+    C = a,
+    B = d.
+
+6.  ?- edge(A,f(g,h)) = edge(a,B).
+    A = a,
+    B = f(g, h).
+
+7.  ?- edge(A,A) = edge(b,c).
+    false.
+
+8.  ?- edge(A,A) = edge(b,b).
+    A = b.
+
+9.  ?- A = B, B = f.
+    A = B, B = f.
+
+10. ?- A = B, B = f, A = e.
+    false.
+
+
+Explanation:
+1.  true  - Both sides are the same atom (house), so they are identical.
+2.  false - house and abc are two different atoms; an atom only unifies with itself.
+3.  C = a - Same functor (edge) and same number of arguments (2). C takes a, and b matches b.
+4.  C = a, B = d - Each variable takes the value in the same position on the other side.
+5.  C = a, B = d - Same as 4; swapping the two sides does not change the result.
+6.  A = a, B = f(g,h) - A takes a, and B takes the whole structure f(g,h). A variable can unify with any term.
+7.  false - The first argument makes A = b, so the second needs b = c, which fails (different atoms).
+8.  A = b - Both arguments give A the same value b, so there is no conflict.
+9.  A = B, B = f - A and B are linked first, then B gets f, so A is also f.
+10. false - A is already f (through B), so A = e fails because f and e are different atoms.
